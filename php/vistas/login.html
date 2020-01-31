@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Proyecto-DAW/css/shop.css">
+    <link rel="shortcut icon" href="/Proyecto-DAW/img/vynil.png" type="image/x-icon">
+    <script src="/Proyecto-DAW/js/jquery-3.4.1.js"></script>
+    <script src="/Proyecto-DAW/js/modal.js"></script>
+    <title>Login Xaxivinilo</title>
+</head>
+
+<body id="login_body">
+    <div id="login">
+        <form action="" method="post">
+            <label for="dni">Dni</label><br><input type="text" name="dni" class="dni"><br>
+            <label for="contr">Contraseña</label><br><input type="password" name="contr" id=""><br>
+            <input type="submit" name="loguear" value="Aceptar">
+        </form>
+    </div>
+    <!-- ! TODO: hay que trabajar en el aspecto de este modal, recordar usar direcciones completas /Proyecto-DAW/img/vynil.png -->
+    <div id="modalLogin" class="fondoModal">
+        <div class="modal modal_login">
+            <img class="icono" src="/Proyecto-DAW/img/warning.svg" alt="">
+            El usuario o la contraseña son incorrectos
+            <button id="cerrarModal">Reintentar</button>
+        </div>
+    </div>

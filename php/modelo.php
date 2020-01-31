@@ -1,17 +1,27 @@
 <?php
 
+//Conectamos la base dedatos por PDO
 class Bd
 {
     private $link;
     public function __construct()
     {
         if (!isset($this->link)) {
-            $this->link = new mysqli('localhost', 'root', '', 'virtualmarket');
-            if ($this->link->connect_errno) {
-                $dato = "Fallo al conectar a MySQL: " . $this->link->connect_error;
-                require "vistas/mensaje.php";
-            } else {
-                $this->link->set_charset('utf-8');
+            //     $this->link = new mysqli('localhost', 'root', '', 'virtualmarket');
+            //     if ($this->link->connect_errno) {
+            //         $dato = "Fallo al conectar a MySQL: " . $this->link->connect_error;
+            //         require "vistas/mensaje.php";
+            //     } else {
+            //         $this->link->set_charset('utf-8');
+            //     }
+            // }
+            try {
+                $this->link = new PDO("mysql:host=localhost;dbname=virtualmarket", "root", "");
+                $this->link->exec("set names utf8mb4");
+            } catch (PDOException $e) {
+                $dato = "¡Error!".$e->getMessage()."</br>";
+                return $dato;
+                die();
             }
         }
     }
@@ -32,8 +42,16 @@ class Cliente
 
     public static function getAll($link)
     {
-        $consulta = "SELECT * FROM clientes";
-        return $link->query($consulta);
+        try {
+            $consulta="SELECT * FROM clientes";
+            $result=$link->prepare($consulta);
+            $result->execute();
+            return $result;
+        } catch (PDOException $e) {
+            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
+        }
     }
     public function __construct($dni, $nombre, $direccion, $email, $pwd, $administrador)
     {
@@ -52,64 +70,166 @@ class Cliente
 
     public function buscar($link)
     {
-        $consulta = "SELECT * FROM clientes WHERE dniCliente='$this->dniCliente'";
-        $result = $link->query($consulta);
-        return $result->fetch_assoc();
+        try {
+            $consulta = "SELECT * FROM clientes WHERE dniCliente='$this->dniCliente'";
+            $result=$link->prepare($consulta);
+            $result->execute();
+            return $result->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $dato = "¡Error!: ".$e->getMessage()."</br>";
+            return $dato;
+            die();
+        }
     }
 
     public function insertar($link)
     {
-        if ($this->buscar($link)) {
-            return false;
-        } else {
+        try {
             $hash = password_hash($this->pwd, PASSWORD_DEFAULT);
-            $consulta = "INSERT INTO clientes VALUES ('$this->dniCliente','$this->nombre','$this->direccion','$this->email','$hash', '$this->administrador')";
-            return $link->query($consulta);
+            $consulta="INSERT INTO clientes VALUES (:dniCliente,:nombre,:direccion,:email,:pwd,:administrador)";
+            $result=$link->prepare($consulta);
+            $result->bindParam(':dniCliente', $this->dniCliente);
+            $result->bindParam(':nombre', $this->nombre);
+            $result->bindParam(':direccion', $this->direccion);
+            $result->bindParam(':email', $this->email);
+            $result->bindParam(':pwd', $hash);
+            $result->bindParam(':administrador', $this->administrador);
+            $result->execute();
+            return $result;
+        } catch (PDOException $e) {
+            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
         }
     }
 
     public function modificar($link)
     {
-        $consulta = "UPDATE clientes SET nombre = '$this->nombre', direccion = '$this->direccion', email = '$this->email' WHERE dniCliente = '$this->dniCliente'";
-        return $link->query($consulta);
+        try {
+            $consulta="UPDATE clientes SET nombre='$this->nombre', direccion = '$this->direccion', email = '$this->email', administrador = '$this->administrador' WHERE dniCliente = '$this->dniCliente";
+            $result=$link->prepare($consulta);
+            return $result->execute();
+        } catch (PDOException $e) {
+            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
+        }
     }
 
     public function eliminar($link)
     {
-        $consulta = "DELETE FROM clientes WHERE dniCliente='$this->dniCliente'";
-        return $link->query($consulta);
-    }
-}
-
-class Carrito
-{
-    private $productos;
-
-    public function __construct($productos)
-    {
-        $this->productos = $productos;
-    }
-
-    public function insert_product($producto)
-    {
-        $this->productos[] = $producto;
-    }
-
-    public static function Linea_producto_carrito($id, $nombre, $precio, $cantidad)
-    {
-        $_SESSION['id'][$_SESSION['total']] = $id;
-        $_SESSION['nombre_producto'][$_SESSION['total']] = $nombre;
-        $_SESSION['precio'][$_SESSION['total']] = $precio;
-        $_SESSION['cantidad'][$_SESSION['total']] = $cantidad;
-    }
-
-    public static function actualizar_cantidades_carrito($array_cantidades)
-    {
-        for ($i = 0; $i < count($array_cantidades); $i++) {
-            $_SESSION['cantidad'][$i] = $array_cantidades[$i];
+        try {
+            $consulta="DELETE FROM clientes where dniCliente='$this->dniCliente'";
+            $result=$link->prepare($consulta);
+            return $result->execute();
+        } catch (PDOException $e) {
+            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
         }
     }
 }
+
+class carrito
+{
+    private $dniCliente;
+    private $idProducto;
+    private $cantidad;
+    private $precio;
+
+    public static function getAll($link)
+    {
+        try {
+            $consulta="SELECT * FROM carritos";
+            $result=$link->prepare($consulta);
+            $result->execute();
+            return $result;
+        } catch (PDOException $e) {
+            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
+        }
+    }
+
+    public function __construct($dniCliente, $idProducto, $cantidad, $precio)
+    {
+        $this->dniCliente;
+        $this->idProducto;
+        $this->cantidad;
+        $this->precio;
+    }
+
+    public function __get($name)
+    {
+        return $this->$name;
+    }
+
+    public function cargarCarrito($link)
+    {
+        try {
+            $consulta="SELECT * FROM carritos WHERE dniCliente = '$this->dniCliente'";
+            $result=$link->prepare($consulta);
+            $result->execute();
+            return $result->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
+        }
+    }
+
+    public function buscar($link)
+    {
+        try {
+            $consulta="SELECT * FROM carritos WHERE dniCliente='$this->dniCliente' AND idProducto='$this->idProducto'";
+            $result=$link->prepare($consulta);
+            $result->execute();
+            return $result->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
+        }
+    }
+
+    public function insertar($link)
+    {
+        // COMPRUEBO SI EL PRODUCTO EXISTE PARA ACTUALIZAR O CREAR LA LINEA DEL CARRITO
+        if ($this->buscar($link)) {
+            $consulta="UPDATE carritos SET cantidad='$this->cantidad', precio='$this->precio'";
+        }
+    }
+}
+
+// class Carrito
+// {
+//     private $productos;
+
+//     public function __construct($productos)
+//     {
+//         $this->productos = $productos;
+//     }
+
+//     public function insert_product($producto)
+//     {
+//         $this->productos[] = $producto;
+//     }
+
+//     public static function Linea_producto_carrito($id, $nombre, $precio, $cantidad)
+//     {
+//         $_SESSION['id'][$_SESSION['total']] = $id;
+//         $_SESSION['nombre_producto'][$_SESSION['total']] = $nombre;
+//         $_SESSION['precio'][$_SESSION['total']] = $precio;
+//         $_SESSION['cantidad'][$_SESSION['total']] = $cantidad;
+//     }
+
+//     public static function actualizar_cantidades_carrito($array_cantidades)
+//     {
+//         for ($i = 0; $i < count($array_cantidades); $i++) {
+//             $_SESSION['cantidad'][$i] = $array_cantidades[$i];
+//         }
+//     }
+// }
 
 class Producto
 {

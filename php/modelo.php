@@ -19,7 +19,7 @@ class Bd
                 $this->link = new PDO("mysql:host=localhost;dbname=virtualmarket", "root", "");
                 $this->link->exec("set names utf8mb4");
             } catch (PDOException $e) {
-                $dato = "¡Error!".$e->getMessage()."</br>";
+                $dato = "¡Error!" . $e->getMessage() . "</br>";
                 return $dato;
                 die();
             }
@@ -43,12 +43,12 @@ class Cliente
     public static function getAll($link)
     {
         try {
-            $consulta="SELECT * FROM clientes";
-            $result=$link->prepare($consulta);
+            $consulta = "SELECT * FROM clientes";
+            $result = $link->prepare($consulta);
             $result->execute();
             return $result;
         } catch (PDOException $e) {
-            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
             return $dato;
             die();
         }
@@ -72,11 +72,11 @@ class Cliente
     {
         try {
             $consulta = "SELECT * FROM clientes WHERE dniCliente='$this->dniCliente'";
-            $result=$link->prepare($consulta);
+            $result = $link->prepare($consulta);
             $result->execute();
             return $result->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            $dato = "¡Error!: ".$e->getMessage()."</br>";
+            $dato = "¡Error!: " . $e->getMessage() . "</br>";
             return $dato;
             die();
         }
@@ -86,8 +86,8 @@ class Cliente
     {
         try {
             $hash = password_hash($this->pwd, PASSWORD_DEFAULT);
-            $consulta="INSERT INTO clientes VALUES (:dniCliente,:nombre,:direccion,:email,:pwd,:administrador)";
-            $result=$link->prepare($consulta);
+            $consulta = "INSERT INTO clientes VALUES (:dniCliente,:nombre,:direccion,:email,:pwd,:administrador)";
+            $result = $link->prepare($consulta);
             $result->bindParam(':dniCliente', $this->dniCliente);
             $result->bindParam(':nombre', $this->nombre);
             $result->bindParam(':direccion', $this->direccion);
@@ -97,7 +97,7 @@ class Cliente
             $result->execute();
             return $result;
         } catch (PDOException $e) {
-            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
             return $dato;
             die();
         }
@@ -106,11 +106,11 @@ class Cliente
     public function modificar($link)
     {
         try {
-            $consulta="UPDATE clientes SET nombre='$this->nombre', direccion = '$this->direccion', email = '$this->email', administrador = '$this->administrador' WHERE dniCliente = '$this->dniCliente";
-            $result=$link->prepare($consulta);
+            $consulta = "UPDATE clientes SET nombre='$this->nombre', direccion = '$this->direccion', email = '$this->email', administrador = '$this->administrador' WHERE dniCliente = '$this->dniCliente";
+            $result = $link->prepare($consulta);
             return $result->execute();
         } catch (PDOException $e) {
-            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
             return $dato;
             die();
         }
@@ -119,18 +119,18 @@ class Cliente
     public function eliminar($link)
     {
         try {
-            $consulta="DELETE FROM clientes where dniCliente='$this->dniCliente'";
-            $result=$link->prepare($consulta);
+            $consulta = "DELETE FROM clientes where dniCliente='$this->dniCliente'";
+            $result = $link->prepare($consulta);
             return $result->execute();
         } catch (PDOException $e) {
-            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
             return $dato;
             die();
         }
     }
 }
 
-class carrito
+class Carrito
 {
     private $dniCliente;
     private $idProducto;
@@ -140,12 +140,12 @@ class carrito
     public static function getAll($link)
     {
         try {
-            $consulta="SELECT * FROM carritos";
-            $result=$link->prepare($consulta);
+            $consulta = "SELECT * FROM carritos";
+            $result = $link->prepare($consulta);
             $result->execute();
             return $result;
         } catch (PDOException $e) {
-            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
             return $dato;
             die();
         }
@@ -153,10 +153,10 @@ class carrito
 
     public function __construct($dniCliente, $idProducto, $cantidad, $precio)
     {
-        $this->dniCliente;
-        $this->idProducto;
-        $this->cantidad;
-        $this->precio;
+        $this->dniCliente = $dniCliente;
+        $this->idProducto = $idProducto;
+        $this->cantidad = $cantidad;
+        $this->precio = $precio;
     }
 
     public function __get($name)
@@ -167,12 +167,12 @@ class carrito
     public function cargarCarrito($link)
     {
         try {
-            $consulta="SELECT * FROM carritos WHERE dniCliente = '$this->dniCliente'";
-            $result=$link->prepare($consulta);
+            $consulta = "SELECT * FROM carritos WHERE dniCliente = '$this->dniCliente'";
+            $result = $link->prepare($consulta);
             $result->execute();
             return $result->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
             return $dato;
             die();
         }
@@ -181,12 +181,12 @@ class carrito
     public function buscar($link)
     {
         try {
-            $consulta="SELECT * FROM carritos WHERE dniCliente='$this->dniCliente' AND idProducto='$this->idProducto'";
-            $result=$link->prepare($consulta);
+            $consulta = "SELECT * FROM carritos WHERE dniCliente='$this->dniCliente' AND idProducto='$this->idProducto'";
+            $result = $link->prepare($consulta);
             $result->execute();
             return $result->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            $dato= "¡Error!: " . $e->getMessage() . "<br/>";
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
             return $dato;
             die();
         }
@@ -196,7 +196,56 @@ class carrito
     {
         // COMPRUEBO SI EL PRODUCTO EXISTE PARA ACTUALIZAR O CREAR LA LINEA DEL CARRITO
         if ($this->buscar($link)) {
-            $consulta="UPDATE carritos SET cantidad='$this->cantidad', precio='$this->precio'";
+
+            try {
+                $consulta = "UPDATE carritos SET cantidad='$this->cantidad', precio='$this->precio'";
+                $result = $link->prepare($consulta);
+                return $result->execute();
+            } catch (PDOException $e) {
+                $dato = "¡Error!: " . $e->getMessage() . "<br/>";
+                return $dato;
+                die();
+            }
+        } else {
+            try {
+                $consulta = "INSERT INTO carritos VALUES (:dniCLiente,:idProducto,:cantidad,:precio)";
+                $result = $link->prepare($consulta);
+                $result->bindParam(':dniCliente', $this->dniCliente);
+                $result->bindParam(':idProducto', $this->idProducto);
+                $result->bindParam(':cantidad', $this->cantidad);
+                $result->bindParam(':precio', $this->precio);
+                return $result->execute();
+            } catch (PDOException $e) {
+                $dato = "¡Error!: " . $e->getMessage() . "<br/>";
+                return $dato;
+                die();
+            }
+        }
+    }
+
+    public function modificar($link)
+    {
+        try {
+            $consulta = "UPDATE carritos SET idProducto='$this->idProducto', cantidad = '$this->cantidad', precio = '$this->precio' WHERE dniCliente = '$this->dniCliente";
+            $result = $link->prepare($consulta);
+            return $result->execute();
+        } catch (PDOException $e) {
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
+        }
+    }
+
+    public function eliminar($link)
+    {
+        try {
+            $consulta = "DELETE FROM carritos where dniCliente='$this->dniCliente' AND idProducto='$this->idProducto'";
+            $result = $link->prepare($consulta);
+            return $result->execute();
+        } catch (PDOException $e) {
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
         }
     }
 }
@@ -263,39 +312,77 @@ class Producto
 
     public static function getAll($link)
     {
-        $consulta = "SELECT * FROM productos";
-        return $link->query($consulta);
+        try {
+            $consulta = "SELECT * FROM productos";
+            $result = $link->prepare($consulta);
+            $result->execute();
+            return $result;
+        } catch (PDOException $e) {
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
+        }
     }
 
-    public static function lastId($link)
-    {
-        $consulta = "SELECT MAX(idProducto) FROM productos";
-        return $link->query($consulta)->fetch_assoc();
-    }
+    //?Quería esto para algo?
+    // public static function lastId($link)
+    // {
+    //     $consulta = "SELECT MAX(idProducto) FROM productos";
+    //     return $link->query($consulta)->fetch_assoc();
+    // }
 
     public function buscar($link)
     {
-        $consulta = "SELECT * FROM productos WHERE idProducto='$this->idProducto'";
-        $result = $link->query($consulta);
-        return $result->fetch_assoc();
+        try {
+            $consulta = "SELECT * FROM productos WHERE idProducto='$this->idProducto'";;
+            $result = $link->prepare($consulta);
+            $result->execute();
+            return $result->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
+        }
     }
 
     public function insertar($link)
     {
-        $consulta = "INSERT INTO productos (nombre, idioma, foto, autor, categoria, anyo, unidades, precio) VALUES ('$this->nombre','$this->idioma','$this->foto','$this->autor', '$this->categoria', '$this->anyo', '$this->unidades', '$this->precio')";
-        return $link->query($consulta);
+        try {
+            $consulta = "INSERT INTO productos (nombre, idioma, foto, autor, categoria, anyo, unidades, precio) VALUES ('$this->nombre','$this->idioma','$this->foto','$this->autor', '$this->categoria', '$this->anyo', '$this->unidades', '$this->precio')";
+            $result = $link->prepare($consulta);
+            $result->execute();
+            return $result;
+        } catch (PDOException $e) {
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
+        }
     }
 
     public function modificar($link)
     {
-        $consulta = "UPDATE productos SET nombre = '$this->nombre', precio = '$this->precio', foto = '$this->foto', autor= '$this->autor' WHERE idProducto = '$this->idProducto'";
-        return $link->query($consulta);
+        try {
+            $consulta = "UPDATE productos SET nombre = '$this->nombre', precio = '$this->precio', foto = '$this->foto', autor= '$this->autor' WHERE idProducto = '$this->idProducto'";
+            $result = $link->prepare($consulta);
+            return $result->execute();
+        } catch (PDOException $e) {
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
+        }
     }
 
     public function eliminar($link)
     {
-        $consulta = "DELETE FROM productos WHERE idProducto='$this->idProducto'";
-        return $link->query($consulta);
+        try {
+            $consulta = "DELETE FROM productos WHERE idProducto='$this->idProducto'";
+            $result = $link->prepare($consulta);
+            return $result->execute();
+        } catch (PDOException $e) {
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
+        }
     }
 }
 

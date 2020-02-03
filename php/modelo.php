@@ -400,8 +400,16 @@ class Pedido
 
     public static function getAll($link)
     {
-        $consulta = "SELECT * FROM pedidos";
-        return $link->query($consulta);
+        try {
+            $consulta = "SELECT * FROM pedidos";
+            $result = $link->prepare($consulta);
+            $result->execute();
+            return $result;
+        } catch (PDOException $e) {
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
+        }
     }
 
     public function __set($name, $value)
@@ -416,11 +424,21 @@ class Pedido
 
     public function obtener_Nid($link)
     {
-        $consulta = "SELECT MAX(idPedido) FROM pedidos";
-        $result = $link->query($consulta)->fetch_assoc();
-        $this->idPedido = $result['MAX(idPedido)'] + 1;
+        try {
+            $consulta = "SELECT MAX(idPedido) FROM pedidos";
+            $result = $link->prepare($consulta);
+            $result->execute();
+            $result->fetch(PDO::FETCH_ASSOC);
+            $this->idPedido = $result['MAX(idPedido)'] + 1;
+        } catch (PDOException $e) {
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
+        }
     }
 
+
+    //TODO Pasarlo a cookies o revisar como hacerlo
     public function create_session_pedido()
     {
         $linea = 1;
@@ -437,19 +455,33 @@ class Pedido
     public function insertar($link)
     {
         if (!isset($this->idPedido)) {
-            $consulta = "SELECT MAX(idPedido) FROM pedidos";
-            $result = $link->query($consulta)->fetch_assoc();
-            $this->idPedido = $result['MAX(idPedido)'] + 1;
+            try {
+                $consulta = "SELECT MAX(idPedido) FROM pedidos";
+                $result = $link->prepare($consulta);
+                $result->execute();
+                $result->fetch(PDO::FETCH_ASSOC);
+                $this->idPedido = $result['MAX(idPedido)'] + 1;
+            } catch (PDOException $e) {
+                $dato = "¡Error!: " . $e->getMessage() . "<br/>";
+                return $dato;
+                die();
+            }
         }
-        $consulta = "INSERT INTO pedidos (idPedido, fecha, dniCliente) VALUES ('$this->idPedido','$this->fecha','$this->dniCliente')";
-        $result = $link->query($consulta);
+        try {
+            $consulta = "INSERT INTO pedidos (idPedido, fecha, dniCliente) VALUES ('$this->idPedido','$this->fecha','$this->dniCliente')";
+            $result = $link->prepare($consulta);
+            $result->execute();
+            return $result;
+        } catch (PDOException $e) {
+            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
+            return $dato;
+            die();
+        }
         if (isset($this->lineaspedidos)) {
             foreach ($this->lineaspedidos as $linea => $objeto) {
                 $objeto->insertar($link);
             }
         }
-
-        return $result;
     }
 
     public function insertar_datosPedido($link)

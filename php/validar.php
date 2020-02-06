@@ -29,7 +29,6 @@ if (!isset($_SESSION['nombre'])) {
             // require "vistas/mensaje.php";
             // include "vistas/fin.html";
         }
-        $base->link->close();
     } else {
         require "vistas/login.html";
         include "vistas/fin.html";

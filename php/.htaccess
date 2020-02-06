@@ -1,0 +1,6 @@
+RewriteEngine on
+
+RewriteRule ^cliente$ cliente.php
+RewriteRule ^cliente/(.+)/(.+)/(.+)/(.+)/(.+)$ cliente.php?dniCliente=$1&nombre=$2&direccion=$3&email=$4&administrador=$5
+RewriteRule ^cliente/(.+)$ cliente.php?dniCliente=$1
+

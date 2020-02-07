@@ -4,3 +4,6 @@ RewriteRule ^cliente$ cliente.php
 RewriteRule ^cliente/(.+)/(.+)/(.+)/(.+)/(.+)$ cliente.php?dniCliente=$1&nombre=$2&direccion=$3&email=$4&administrador=$5
 RewriteRule ^cliente/(.+)$ cliente.php?dniCliente=$1
 
+RewriteRule ^producto$ producto.php
+RewriteRule ^producto/(.+)/(.+)/(.+)/(.+)/(.+)$ producto.php?idProducto=$1&nombre=$2&precio=$3&foto=$4&autor=$5
+RewriteRule ^producto/(.+)$ producto.php?idProducto=$1

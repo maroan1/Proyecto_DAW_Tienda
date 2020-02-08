@@ -7,14 +7,6 @@ class Bd
     public function __construct()
     {
         if (!isset($this->link)) {
-            //     $this->link = new mysqli('localhost', 'root', '', 'virtualmarket');
-            //     if ($this->link->connect_errno) {
-            //         $dato = "Fallo al conectar a MySQL: " . $this->link->connect_error;
-            //         require "vistas/mensaje.php";
-            //     } else {
-            //         $this->link->set_charset('utf-8');
-            //     }
-            // }
             try {
                 $this->link = new PDO("mysql:host=localhost;dbname=virtualmarket", "root", "");
                 $this->link->exec("set names utf8mb4");
@@ -81,6 +73,25 @@ class Cliente
             die();
         }
     }
+
+    // public function validar($link)
+    // {
+    //     $fila = $this->buscar($link);
+    //     if (password_verify($this->pwd, $fila['pwd'])) {
+    //         try {
+    //             $consulta = "SELECT dniCliente, nombre FROM clientes WHERE dniCliente='$this->dniCliente'";
+    //             $result = $link->prepare($consulta);
+    //             $result->execute();
+    //             return $result->fetch(PDO::FETCH_ASSOC);
+    //         } catch (PDOException $e) {
+    //             $dato = "¡Error!: " . $e->getMessage() . "</br>";
+    //             return $dato;
+    //             die();
+    //         }
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     public function insertar($link)
     {

@@ -1,5 +1,7 @@
 RewriteEngine on
 
+RewriteRule ^index$ index.php
+
 RewriteRule ^cliente$ cliente.php
 RewriteRule ^cliente/(.+)/(.+)/(.+)/(.+)/(.+)$ cliente.php?dniCliente=$1&nombre=$2&direccion=$3&email=$4&administrador=$5
 RewriteRule ^cliente/(.+)$ cliente.php?dniCliente=$1
@@ -11,3 +13,8 @@ RewriteRule ^producto/(.+)$ producto.php?idProducto=$1
 RewriteRule ^carritos$ carritos.php
 RewriteRule ^carritos/(.+)/(.+)$ carritos.php?dniCliente=$1&idProducto=$2
 RewriteRule ^carritos/(.+)$ carritos.php?dniCliente=$1
+
+RewriteRule ^detalle$ detalle.php
+RewriteRule ^detalle/(.+)$ detalle.php?id=$1
+
+RewriteRule ^carrito$ carrito.php

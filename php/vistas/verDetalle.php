@@ -11,7 +11,7 @@ echo "<p><b>Categoria: </b> " . $detalle['categoria'] . " </p>";
 echo "<p><b>Año: </b> " . $detalle['anyo'] . " </p>";
 echo "<p><b>Stock: </b> " . $detalle['unidades'] . " unidades </p>";
 echo "<p><b>Precio: </b> " . $detalle['precio'] . "€ </p>";
-echo "<form action='carrito.php' method='post'>
+echo "<form action='http://localhost/Proyecto_DAW_Tienda/php/carrito' method='post'>
     <input type='number' name='cantidad' value=1 min=1 max=" . $detalle['unidades'] . " >";
 echo "<input type='hidden' name='id' value='" . $detalle['idProducto'] . "'>";
 echo "<input type='hidden' name='precio' value='" . $detalle['precio'] . "'>";

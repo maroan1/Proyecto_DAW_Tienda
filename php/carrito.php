@@ -20,17 +20,14 @@ if (isset($_POST['comprar'])) {
         $arryCarrito = array('idProducto' => $_POST['id'], 'cantidad' => $_POST['cantidad'], 'precio' => $_POST['precio']);
         setcookie("carrito[" . $_POST['id'] . "]", json_encode($arryCarrito), time() + 604800);
     }
+    header("Location:carrito");
 } elseif (isset($_POST['actualizar'])) {
-    // print_r($_POST['cantidad']);
-    Carrito::actualizar_cantidades_carrito($_POST['cantidad']);
 }
 
-
-if ($_SESSION['total'] > 0) {
+if (countCarrito() > 0) {
     require "vistas/verCarrito.php";
-    // print_r($_SESSION);
 } else {
-    $dato = "El carrito esta vacío.<br><a href='principal.php'>Volver a la tienda</a>";
+    $dato = "El carrito esta vacío.<br><a href='index'>Volver a la tienda</a>";
     require "vistas/mensaje.php";
 }
 

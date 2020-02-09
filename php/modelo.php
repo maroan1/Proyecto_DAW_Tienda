@@ -178,10 +178,10 @@ class Carrito
     public function cargarCarrito($link)
     {
         try {
-            $consulta = "SELECT * FROM carritos WHERE dniCliente = '$this->dniCliente'";
+            $consulta = "SELECT * FROM carritos WHERE dniCliente='$this->dniCliente'";
             $result = $link->prepare($consulta);
             $result->execute();
-            return $result->fetch(PDO::FETCH_ASSOC);
+            return $result;
         } catch (PDOException $e) {
             $dato = "¡Error!: " . $e->getMessage() . "<br/>";
             return $dato;

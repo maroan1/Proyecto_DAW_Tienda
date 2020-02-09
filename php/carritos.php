@@ -8,12 +8,19 @@ $base = new Bd();
   listar todos los posts o solo uno
  */
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if (isset($_GET['dniCliente'])) {
-        //Mostrar un post
-        $cart = new Carrito($_GET['dniCliente'], '', '', '');
+    if (isset($_GET['idProducto']) && isset($_GET['dniCliente'])) {
+        $cart = new Carrito($_GET['dniCliente'], $_GET['idProducto'], '', '');
         $dato = $cart->buscar($base->link);
         header("HTTP/1.1 200 OK");
         echo json_encode($dato);
+        exit();
+    } elseif (isset($_GET['dniCliente'])) {
+        //!ESTA ES LA MANERA DE MOSTRAR MÁS DE UN RESULTADO
+        $cart = new Carrito($_GET['dniCliente'], '', '', '');
+        $dato = $cart->cargarCarrito($base->link);
+        $dato->setFetchMode(PDO::FETCH_ASSOC);
+        header("HTTP/1.1 200 OK");
+        echo json_encode($dato->fetchAll());
         exit();
     } else {
         //Mostrar lista de post

@@ -2,7 +2,7 @@
 session_start();
 include "vistas/inicio.html";
 include "vistas/spanCarrito.php";
-$pActual = "detalle.php";
+$pActual = "detalle/" . $_GET['id'];
 require "validar.php";
 
 if (isset($_GET['id'])) {

@@ -232,7 +232,7 @@ class Carrito
             }
         } else {
             try {
-                $consulta = "INSERT INTO carritos VALUES (:dniCLiente,:idProducto,:cantidad,:precio)";
+                $consulta = "INSERT INTO carritos VALUES (:dniCliente,:idProducto,:cantidad,:precio)";
                 $result = $link->prepare($consulta);
                 $result->bindParam(':dniCliente', $this->dniCliente);
                 $result->bindParam(':idProducto', $this->idProducto);
@@ -278,136 +278,11 @@ class Carrito
             die();
         }
     }
-}
 
-
-class CarritoUnlogged
-{
-    private $idProducto;
-    private $cantidad;
-    private $precio;
-
-    public static function getAll($link)
+    public function eliminarCarrito($link)
     {
         try {
-            $consulta = "SELECT * FROM carritos";
-            $result = $link->prepare($consulta);
-            $result->execute();
-            return $result;
-        } catch (PDOException $e) {
-            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
-            return $dato;
-            die();
-        }
-    }
-
-    public function __construct($idProducto, $cantidad, $precio)
-    {
-        $this->idProducto = $idProducto;
-        $this->cantidad = $cantidad;
-        $this->precio = $precio;
-    }
-
-    public function __get($name)
-    {
-        return $this->$name;
-    }
-
-    public function cargarCarrito($link)
-    {
-        try {
-            $consulta = "SELECT * FROM carritos WHERE dniCliente = '$this->dniCliente'";
-            $result = $link->prepare($consulta);
-            $result->execute();
-            return $result->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
-            return $dato;
-            die();
-        }
-    }
-
-    public function buscar($link)
-    {
-        try {
-            $consulta = "SELECT * FROM carritos WHERE dniCliente='$this->dniCliente' AND idProducto='$this->idProducto'";
-            $result = $link->prepare($consulta);
-            $result->execute();
-            return $result->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
-            return $dato;
-            die();
-        }
-    }
-
-    public function contarProductos($link)
-    {
-        try {
-            $consulta = "SELECT COUNT(*) FROM carritos WHERE dniCliente='$this->dniCliente'";
-            $result = $link->prepare($consulta);
-            $result->execute();
-            return $result->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
-            return $dato;
-            die();
-        }
-    }
-
-    public function insertar($link)
-    {
-        // COMPRUEBO SI EL PRODUCTO EXISTE PARA ACTUALIZAR O CREAR LA LINEA DEL CARRITO
-        if ($this->buscar($link)) {
-            try {
-                $consulta = "UPDATE carritos SET cantidad='$this->cantidad', precio='$this->precio'";
-                $result = $link->prepare($consulta);
-                return $result->execute();
-            } catch (PDOException $e) {
-                $dato = "¡Error!: " . $e->getMessage() . "<br/>";
-                return $dato;
-                die();
-            }
-        } else {
-            try {
-                $consulta = "INSERT INTO carritos VALUES (:dniCLiente,:idProducto,:cantidad,:precio)";
-                $result = $link->prepare($consulta);
-                $result->bindParam(':dniCliente', $this->dniCliente);
-                $result->bindParam(':idProducto', $this->idProducto);
-                $result->bindParam(':cantidad', $this->cantidad);
-                $result->bindParam(':precio', $this->precio);
-                return $result->execute();
-            } catch (PDOException $e) {
-                $dato = "¡Error!: " . $e->getMessage() . "<br/>";
-                return $dato;
-                die();
-            }
-        }
-    }
-
-    public function modificar($link)
-    {
-        try {
-            if ($this->cantidad == 0) {
-                $consulta = "DELETE FROM carritos where dniCliente='$this->dniCliente' AND idProducto='$this->idProducto'";
-                $result = $link->prepare($consulta);
-                return $result->execute();
-            } else {
-                $consulta = "UPDATE carritos SET idProducto='$this->idProducto', cantidad = '$this->cantidad', precio = '$this->precio' WHERE dniCliente = '$this->dniCliente";
-                $result = $link->prepare($consulta);
-                return $result->execute();
-            }
-        } catch (PDOException $e) {
-            $dato = "¡Error!: " . $e->getMessage() . "<br/>";
-            return $dato;
-            die();
-        }
-    }
-
-    public function eliminar($link)
-    {
-        try {
-            $consulta = "DELETE FROM carritos where dniCliente='$this->dniCliente' AND idProducto='$this->idProducto'";
+            $consulta = "DELETE FROM carritos where dniCliente='$this->dniCliente'";
             $result = $link->prepare($consulta);
             return $result->execute();
         } catch (PDOException $e) {

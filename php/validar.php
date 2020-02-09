@@ -2,11 +2,7 @@
 if (isset($_GET['logout'])) {
     setcookie('nombre', '', -604800);
     setcookie('dni', '', -604800);
-    //* Borrar cookie carrito
-    // foreach ($_COOKIE['carrito'] as $key => $value) {
-    //     setcookie('carrito[' . $key . ']', '', -604800);
-    // }
-    header("Location:index.php");
+    header("Location:" . $pActual);
 } else {
     if (isset($_POST['login'])) {
         $url = "http://localhost/Proyecto_DAW_Tienda/php/cliente/" . $_POST['dni'];
@@ -23,8 +19,8 @@ if (isset($_GET['logout'])) {
             setcookie('nombre', $data['nombre'], time() + 604800);
             if (isset($_COOKIE['carrito'])) {
                 foreach ($_COOKIE['carrito'] as $key => $value) {
-                    $valores = json_decode($value);
-                    $postData = array('dniCliente' => $_POST['contr'], 'idProducto' => $valores['idProducto'], 'cantidad' => $valores['cantidad'], 'precio' => $valores['precio']);
+                    $valores = json_decode($value, true);
+                    $postData = array('dniCliente' => $_POST['dni'], 'idProducto' => $valores['idProducto'], 'cantidad' => $valores['cantidad'], 'precio' => $valores['precio']);
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyecto_DAW_Tienda/php/carritos");
                     curl_setopt($ch, CURLOPT_HEADER, false);
@@ -33,13 +29,18 @@ if (isset($_GET['logout'])) {
                     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     $data = curl_exec($ch);
+                    print_r($data);
                     curl_close($ch);
                 }
+                // BORRAMOS LAS COOKIES DEL CARRITO
+                foreach ($_COOKIE['carrito'] as $key => $value) {
+                    setcookie('carrito[' . $key . ']', '', -604800);
+                }
             }
+            header("Location:" . $pActual);
         } else {
             $dato = "Contraseña o DNI incorrectos.";
             require "vistas/mensaje.php";
         }
-        // header("Location:index.php");
     }
 }

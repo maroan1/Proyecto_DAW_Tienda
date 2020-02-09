@@ -14,6 +14,5 @@ echo "<p><b>Precio: </b> " . $detalle['precio'] . "€ </p>";
 echo "<form action='carrito.php' method='post'>
     <input type='number' name='cantidad' value=1 min=1 max=" . $detalle['unidades'] . " >";
 echo "<input type='hidden' name='id' value='" . $detalle['idProducto'] . "'>";
-echo "<input type='hidden' name='nombre' value='" . $detalle['nombre'] . "'>";
 echo "<input type='hidden' name='precio' value='" . $detalle['precio'] . "'>";
 echo "<input type='submit' name='comprar' value='Enviar a carrito' ></form></div></div>";

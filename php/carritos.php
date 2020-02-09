@@ -10,14 +10,14 @@ $base = new Bd();
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['dniCliente'])) {
         //Mostrar un post
-        $cli = new Cliente($_GET['dniCliente'], '', '', '', '', '');
-        $dato = $cli->buscar($base->link);
+        $cart = new Carrito($_GET['dniCliente'], '', '', '');
+        $dato = $cart->buscar($base->link);
         header("HTTP/1.1 200 OK");
         echo json_encode($dato);
         exit();
     } else {
         //Mostrar lista de post
-        $dato = Cliente::getAll($base->link);
+        $dato = Carrito::getAll($base->link);
         $dato->setFetchMode(PDO::FETCH_ASSOC);
         header("HTTP/1.1 200 OK");
         echo json_encode($dato->fetchAll());
@@ -27,32 +27,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 // Crear un nuevo post
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $cli = new Cliente($_POST['dniCliente'], $_POST['nombre'], $_POST['direccion'], $_POST['email'], $_POST['pwd'], $_POST['administrador']);
-    if (!$cli->buscar($base->link)) {
-        $cli->insertar($base->link);
+    $cart = new Carrito($_POST['dniCliente'], $_POST['idProducto'], $_POST['cantidad'], $_POST['precio']);
+    if (!$cart->buscar($base->link)) {
+        $cart->insertar($base->link);
         header("HTTP/1.1 200 OK");
-        echo json_encode($_POST['dniCliente']);
+        // echo json_encode($_POST['dniCliente']);
+        echo $cart->__get('dniCliente') . " " . $cart->__get('idProducto') . " " . $cart->__get('cantidad') . " " . $cart->__get('precio');
         exit();
     }
 }
 
 //Borrar
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-    $dniCliente = $_GET['dniCliente'];
-    $cli = new Cliente($dniCliente, '', '', '', '', '');
-    if ($dato = $cli->eliminar($base->link)) {
-        header("HTTP/1.1 200 OK");
-        echo json_encode($dniCliente);
-        exit();
+    if ($_GET['dniCliente'] && $_GET['idProducto']) {
+        $cart = new Carrito($_GET['dniCliente'], $_GET['idProducto'], '', '');
+        if ($dato = $cart->eliminar($base->link)) {
+            header("HTTP/1.1 200 OK");
+            echo "Eliminado";
+            exit();
+        }
+    } else {
+        $dniCliente = $_GET['dniCliente'];
+        $cart = new Carrito($dniCliente, '', '', '');
+        if ($dato = $cart->eliminarCarrito($base->link)) {
+            header("HTTP/1.1 200 OK");
+            echo json_encode($dniCliente);
+            exit();
+        }
     }
 }
 
 //Actualizar
 if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
-    $cli = new Cliente($_GET['dniCliente'], $_GET['nombre'], $_GET['direccion'], $_GET['email'], '', $_GET['administrador']);
-    $text = $cli->modificar($base->link);
+    $cart = new Carrito($_GET['dniCliente'], $_GET['idProducto'], $_GET['cantidad'], $_GET['precio']);
+    $text = $cart->modificar($base->link);
     header("HTTP/1.1 200 OK");
-    echo json_encode($text . " " . $cli->__get("dniCliente") . " " . $cli->__get("nombre") . " " . $cli->__get("direccion"));
+    echo json_encode($text);
     exit();
 }
 

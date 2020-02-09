@@ -9,7 +9,7 @@ function countCarrito()
 {
     $count = 0;
     if (isset($_COOKIE['nombre'])) {
-        $url = "http://localhost/Proyecto_DAW_Tienda/php/producto";
+        $url = "http://localhost/Proyecto_DAW_Tienda/php/carritos/" . $_COOKIE['dni'];
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, false);

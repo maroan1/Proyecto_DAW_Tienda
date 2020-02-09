@@ -1,15 +1,9 @@
 <?php
-session_start();
-require "modelo.php";
 include "vistas/inicio.html";
-if (isset($_SESSION['nombre'])) {
-    if ($_SESSION['total'] > 0) {
+if (isset($_COOKIE['nombre'])) {
+    if ($_GET['total'] > 0) {
         $precioTotal = 0;
-        $base = new Bd();
-        $pedido = new Pedido();
-        $pedido->obtener_Nid($base->link);
-        $pedido->create_session_pedido();
-        $pedido->insertar($base->link);
+
         $fecha = DateTime::createFromFormat('Y-m-d', $pedido->__get('fecha'));
         $dato = "<div class='detalle_pedido_cuerpo'><div class='detalle_pedido_datos'>";
         $dato .= "<div>ID: " . $pedido->__get('idPedido') . "</div>";
@@ -25,14 +19,12 @@ if (isset($_SESSION['nombre'])) {
         $dato .= "</div>";
         $dato .= "<div class='detalle_pedido_precioTotal'>TOTAL: $precioTotal €</div></div>";
         require "vistas/mensaje.php";
-        $base->link->close();
-        session_destroy();
     } else {
-        $dato = "El carrito esta vacío.<br><a href='principal.php'>Volver a la tienda</a>";
+        $dato = "El carrito esta vacío.<br><a href='index'>Volver a la tienda</a>";
         require "vistas/mensaje.php";
     }
 } else {
-    $dato = "No tienes permiso para entrar a esta página, por favor logueate como cliente.<br>Ir al <a href='validar.php'>login</a>.";
+    $dato = "Debes de loguearte antes de realizar la compra.<br><a href='carrito'>Volver al carrito</a>.";
     require "vistas/mensaje.php";
 }
 

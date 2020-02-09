@@ -11,6 +11,7 @@ RewriteRule ^producto/(.+)/(.+)/(.+)/(.+)/(.+)$ producto.php?idProducto=$1&nombr
 RewriteRule ^producto/(.+)$ producto.php?idProducto=$1
 
 RewriteRule ^carritos$ carritos.php
+RewriteRule ^carritos/(.+)/(.+)/(.+)/(.+)$ carritos.php?dniCliente=$1&idProducto=$2&cantidad=$3&precio=$4
 RewriteRule ^carritos/(.+)/(.+)$ carritos.php?dniCliente=$1&idProducto=$2
 RewriteRule ^carritos/(.+)$ carritos.php?dniCliente=$1
 
@@ -18,3 +19,6 @@ RewriteRule ^detalle$ detalle.php
 RewriteRule ^detalle/(.+)$ detalle.php?id=$1
 
 RewriteRule ^carrito$ carrito.php
+
+RewriteRule ^confirmar$ confirmar.php
+RewriteRule ^confirmar/(.+) confirmar.php?total=$1

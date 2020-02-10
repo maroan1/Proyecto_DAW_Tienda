@@ -22,3 +22,14 @@ RewriteRule ^carrito$ carrito.php
 
 RewriteRule ^confirmar$ confirmar.php
 RewriteRule ^confirmar/(.+) confirmar.php?total=$1
+
+RewriteRule ^pedido$ pedido.php
+RewriteRule ^pedido/(.+)/(.+)/(.+)$ pedido.php?idPedido=$1&dniCliente=$2&fecha=$3
+RewriteRule ^pedido/(.+)$ pedido.php?idPedido=$1
+
+RewriteRule ^lineaPedido$ lineaPedido.php
+RewriteRule ^lineaPedido/(.+)/(.+)/(.+)/(.+)$ lineaPedido.php?idPedido=$1&nlinea=$2&idProducto=$3&cantidad=$4
+RewriteRule ^lineaPedido/(.+)/(.+)$ lineaPedido.php?idPedido=$1&nlinea=$2&
+RewriteRule ^lineaPedido/(.+)$ lineapedido.php?idPedido=$1
+
+

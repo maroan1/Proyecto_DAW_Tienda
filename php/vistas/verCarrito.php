@@ -17,6 +17,7 @@ if (isset($_COOKIE['nombre'])) {
     curl_setopt($ch, CURLOPT_HEADER, false);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $datos = json_decode(curl_exec($ch), true);
+    print_r($datos);
     curl_close($ch);
     foreach ($datos as $key => $value) {
         $url = "http://localhost/Proyecto_DAW_Tienda/php/producto/" . $value['idProducto'];

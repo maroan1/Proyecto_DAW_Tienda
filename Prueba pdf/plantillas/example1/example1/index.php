@@ -3,7 +3,7 @@
 $html = "<body>
 <header>
     <div id='logo'>
-        <img src='/img/logo.png' alt='logo de la compañia'>
+        <img src='img/logo.png' alt='logo de la compañia' width='120px'>
         XaxiVinilos
     </div>
     <h1 id='idFactura'>FACTURA#1909#</h1>
@@ -20,7 +20,7 @@ $html = "<body>
     </div>
 </header>
 <main>
-    <table>
+    <table border=1>
         <thead>
             <th>ID</th>
             <th>Producto</th>
@@ -60,7 +60,7 @@ $html = "<body>
     <div id='notas'>
         <div>NOTAS:</div>
         <div class='nota'>Tiene 30 días de compromiso para devolver el producto sin desperfectos (se comprueba el
-            beun
+            buen
             estado de nuestros productos antes de entregar).</div>
         <div class='nota'>Para devoluciones en compras online pongasé en contacto con nuestro servico de atención al
             cliente.</div>

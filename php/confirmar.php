@@ -70,7 +70,7 @@ $mpdf = new \Mpdf\Mpdf();
 $stylesheet = file_get_contents('/Proyecto_DAW_Tienda/css/shop.css');
 
 $mpdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
-$mpdf->WriteHTML($html, \Mpdf\HTMLParserMode::HTML_BODY);
+$mpdf->WriteHTML($dato, \Mpdf\HTMLParserMode::HTML_BODY);
 $mpdf->Output();
 // }
 

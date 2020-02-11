@@ -1,6 +1,6 @@
 <?php
 echo "<div class='detalle_base'>";
-echo "<div class='detalle_foto'><img src='/Proyecto-DAW/img/" . $detalle['foto'] . "'></div>";
+echo "<div class='detalle_foto'><img src='/Proyecto_DAW_Tienda/img/" . $detalle['foto'] . "'></div>";
 echo "<div class='detalle_datos'>";
 echo "<header><h1>" . $detalle['nombre'] . "</h1></header>";
 

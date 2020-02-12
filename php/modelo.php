@@ -499,6 +499,13 @@ class Pedido
         }
     }
 
+    public function obtenerDir($link)
+    {
+        $cli = new Cliente($this->dniCliente, '', '', '', '', '');
+        $datos = $cli->buscar($link);
+        $this->dirEntrega = $datos['direccion'];
+    }
+
 
     //TODO Pasarlo a cookies o revisar como hacerlo
     // public function create_session_pedido()
@@ -517,6 +524,7 @@ class Pedido
     public function insertar($link)
     {
         $this->fecha = date("Y-m-d");
+        $this->obtenerDir($link);
         if (!isset($this->idPedido)) {
             // try {
             //     $consulta = "SELECT MAX(idPedido) FROM pedidos";
@@ -532,7 +540,7 @@ class Pedido
             $this->obtener_Nid($link);
         }
         try {
-            $consulta = "INSERT INTO pedidos (idPedido, fecha, dniCliente) VALUES ('$this->idPedido','$this->fecha','$this->dniCliente')";
+            $consulta = "INSERT INTO pedidos (idPedido, fecha, dniCliente, dirEntrega) VALUES ('$this->idPedido','$this->fecha','$this->dniCliente', '$this->dirEntrega')";
             $result = $link->prepare($consulta);
             $result->execute();
         } catch (PDOException $e) {

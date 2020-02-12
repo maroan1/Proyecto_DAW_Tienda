@@ -28,7 +28,7 @@ if (isset($_COOKIE['nombre'])) {
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $datos = json_decode(curl_exec($ch), true);
-        print_r($datos);
+        // print_r($datos);
         curl_close($ch);
 
         $dato = "<div class='detalle_pedido_cuerpo'><div class='detalle_pedido_datos'>";

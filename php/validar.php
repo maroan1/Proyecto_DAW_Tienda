@@ -29,7 +29,7 @@ if (isset($_GET['logout'])) {
                     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     $data = curl_exec($ch);
-                    print_r($data);
+                    // print_r($data);
                     curl_close($ch);
                 }
                 // BORRAMOS LAS COOKIES DEL CARRITO

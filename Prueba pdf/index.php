@@ -3,8 +3,8 @@
 require_once('../vendor/autoload.php');
 require "./plantillas/example1/example1/index.php";
 
-$css = file_get_contents('./plantillas/example1/example1/style.css');
-$id = 1281;
+$css = file_get_contents('factura.css');
+$id = 1282;
 
 $mpdf = new \Mpdf\Mpdf([]);
 

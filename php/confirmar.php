@@ -9,7 +9,7 @@ if (isset($_COOKIE['nombre'])) {
         curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyecto_DAW_Tienda/php/pedido");
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_POST, true);
-        //http_build_query => Generar una cadena de consulta codificada estilo URL a partir de array  
+        //http_build_query => Generar una cadena de consulta codificada estilo URL a partir de array
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $data = json_decode(curl_exec($ch), true);
@@ -64,27 +64,15 @@ if (isset($_COOKIE['nombre'])) {
 }
 
 // if (isset($_GET['imprimir'])) {
-require_once "/Proyecto_DAW_Tienda/vendor/autoload.php";
+// require_once "../vendor/autoload.php";
 
-$mpdf = new \Mpdf\Mpdf();
-$stylesheet = file_get_contents('/Proyecto_DAW_Tienda/css/shop.css');
+// $mpdf = new \Mpdf\Mpdf();
+// $stylesheet = file_get_contents('/Proyecto_DAW_Tienda/css/shop.css');
 
-$mpdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
-$mpdf->WriteHTML($dato, \Mpdf\HTMLParserMode::HTML_BODY);
-$mpdf->Output();
-// }
+// $mpdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
+// $mpdf->WriteHTML($dato, \Mpdf\HTMLParserMode::HTML_BODY);
+// $mpdf->Output();
+// // }
 
 
 include "vistas/fin.html";
-
-
-function imprimir($html)
-{
-    require_once "../vendor/autoload.php";
-
-    $mpdf = new \Mpdf\Mpdf();
-    $stylesheet = file_get_contents('../css/shop.css');
-
-    $mpdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
-    $mpdf->WriteHTML($html, \Mpdf\HTMLParserMode::HTML_BODY);
-}

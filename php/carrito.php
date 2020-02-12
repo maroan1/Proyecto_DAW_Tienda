@@ -10,7 +10,7 @@ if (isset($_POST['comprar'])) {
         curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyecto_DAW_Tienda/php/carritos");
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_POST, true);
-        //http_build_query => Generar una cadena de consulta codificada estilo URL a partir de array  
+        //http_build_query => Generar una cadena de consulta codificada estilo URL a partir de array
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $data = curl_exec($ch);

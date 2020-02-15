@@ -39,7 +39,7 @@ if (isset($_GET['logout'])) {
             }
             header("Location:" . $pActual);
         } else {
-            $dato = "Contraseña o DNI incorrectos.";
+            $dato = "<div class='text-danger '>Contraseña o DNI incorrectos.</div>";
             require "vistas/mensaje.php";
         }
     }

@@ -232,8 +232,23 @@ body {
     align-content: flex-start;
 }
 
+.imagenAutor img {
+    display: none;
+}
+
+.logoAutor {
+    text-align: center;
+}
+
+.logoAutor img {
+    max-width: 40vh;
+    max-height: 100vh;
+    object-fit: contain;
+}
+
 .detalle_foto {
     border: 2px black solid;
+    background-color: white;
 }
 
 .detalle_foto img {
@@ -242,9 +257,11 @@ body {
 }
 
 .detalle_datos {
+    background-color: white;
     padding: 3vh;
     min-width: 25%;
     border: 5px black solid;
+    width: 100%;
 }
 
 .detalle_datos header {
@@ -366,6 +383,16 @@ body {
     .estanteria a:visited {
         font-size: 4.5vh;
     }
+
+    .imagenAutor img {
+        position: absolute;
+        z-index: -100;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: blur(2px);
+        display: block;
+    }
 }
 
 @media screen and (min-width: 850px) {
@@ -452,5 +479,23 @@ body {
     .estanteria a,
     .estanteria a:visited {
         font-size: 1.5vw;
+    }
+
+    .detalle_foto img {
+        max-width: 500px;
+    }
+
+    .imagenAutor img {
+        position: absolute;
+        z-index: -100;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: blur(2px);
+        display: block;
+    }
+
+    .detalle_datos {
+        width: auto;
     }
 }

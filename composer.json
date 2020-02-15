@@ -1,0 +1,10 @@
+{
+    "require": {
+        "tecnickcom/tc-lib-pdf": "dev-master",
+        "mpdf/mpdf": "^8.0"
+    },
+    "repositories": [{
+        "type": "vcs",
+        "url": "git@github.com:tecnickcom/tc-lib-pdf.git"
+    }]
+}

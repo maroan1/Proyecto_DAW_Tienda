@@ -1,0 +1,35 @@
+RewriteEngine on
+
+RewriteRule ^index$ index.php
+
+RewriteRule ^cliente$ cliente.php
+RewriteRule ^cliente/(.+)/(.+)/(.+)/(.+)/(.+)$ cliente.php?dniCliente=$1&nombre=$2&direccion=$3&email=$4&administrador=$5
+RewriteRule ^cliente/(.+)$ cliente.php?dniCliente=$1
+
+RewriteRule ^producto$ producto.php
+RewriteRule ^producto/(.+)/(.+)/(.+)/(.+)/(.+)$ producto.php?idProducto=$1&nombre=$2&precio=$3&foto=$4&autor=$5
+RewriteRule ^producto/(.+)$ producto.php?idProducto=$1
+
+RewriteRule ^carritos$ carritos.php
+RewriteRule ^carritos/(.+)/(.+)/(.+)/(.+)$ carritos.php?dniCliente=$1&idProducto=$2&cantidad=$3&precio=$4
+RewriteRule ^carritos/(.+)/(.+)$ carritos.php?dniCliente=$1&idProducto=$2
+RewriteRule ^carritos/(.+)$ carritos.php?dniCliente=$1
+
+RewriteRule ^detalle$ detalle.php
+RewriteRule ^detalle/(.+)$ detalle.php?id=$1
+
+RewriteRule ^carrito$ carrito.php
+
+RewriteRule ^confirmar$ confirmar.php
+RewriteRule ^confirmar/(.+) confirmar.php?total=$1
+
+RewriteRule ^pedido$ pedido.php
+RewriteRule ^pedido/(.+)/(.+)/(.+)$ pedido.php?idPedido=$1&dniCliente=$2&fecha=$3
+RewriteRule ^pedido/(.+)$ pedido.php?idPedido=$1
+
+RewriteRule ^lineaPedido$ lineaPedido.php
+RewriteRule ^lineaPedido/(.+)/(.+)/(.+)/(.+)$ lineaPedido.php?idPedido=$1&nlinea=$2&idProducto=$3&cantidad=$4
+RewriteRule ^lineaPedido/(.+)/(.+)$ lineaPedido.php?idPedido=$1&nlinea=$2&
+RewriteRule ^lineaPedido/(.+)$ lineapedido.php?idPedido=$1
+
+

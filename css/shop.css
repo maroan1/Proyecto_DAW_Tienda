@@ -93,6 +93,7 @@ body {
 }
 
 .cabecera {
+    margin: 0 !important;
     font-family: 'Supermercado One',
         cursive;
     text-align: center;
@@ -120,6 +121,10 @@ body {
     padding: 1vh;
     border-radius: 5vh;
     margin: 1vh;
+}
+
+.cabecera img {
+    width: 120px;
 }
 
 .tienda_menu {
@@ -158,19 +163,16 @@ body {
 }
 
 .carrito_total {
+    font-weight: bold;
     font-size: 2vw;
     position: absolute;
-    background-color: white;
-    color: black;
-    top: 0;
-    right: 0;
+    color: #e6ac00;
+    top: -6px;
+    right: 40%;
     padding: 1vw;
     border-radius: 100%;
     width: 2vw;
     height: 2vw;
-    -webkit-box-shadow: -13px -6px 30px 2px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: -13px -6px 30px 2px rgba(0, 0, 0, 0.75);
-    box-shadow: -13px -6px 30px 2px rgba(0, 0, 0, 0.75);
 }
 
 
@@ -420,7 +422,7 @@ body {
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
-        top: 0;
+        top: -20px;
         right: 0;
         padding: 0;
     }
@@ -436,9 +438,10 @@ body {
     }
 
     .carrito_total {
+        color: #e6ac00;
         text-align: center;
-        left: -1vh;
-        bottom: -1vh;
+        left: 0;
+        bottom: 0;
         top: auto;
         padding: 1vw;
         -webkit-box-shadow: none;
@@ -448,9 +451,7 @@ body {
         padding: 1vh;
         height: 1vh;
         width: 1vh;
-        -webkit-box-shadow: inset -2px 9px 24px -5px rgba(0, 0, 0, 0.75);
-        -moz-box-shadow: inset -2px 9px 24px -5px rgba(0, 0, 0, 0.75);
-        box-shadow: inset -2px 9px 24px -5px rgba(0, 0, 0, 0.75);
+        background-color: rgba(0, 0, 0, 0);
     }
 
     .estanteria {

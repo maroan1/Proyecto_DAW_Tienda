@@ -1,40 +1,46 @@
-<script></script>
 <?php
-session_start();
-require "modelo.php";
-if (!isset($_SESSION['nombre'])) {
-    if (isset($_POST['loguear'])) {
-        $base = new Bd();
-        $login = new Cliente($_POST['dni'], "", "", "", "", "");
-        $comp = $login->buscar($base->link);
-        if (password_verify($_POST['contr'], $comp['pwd'])) {
-            if ($comp['administrador']) {
-                header("Location: ../adminUsuarios.html");
-                exit();
-            } else {
-                $_SESSION['nombre'] = $comp['nombre'];
-                $_SESSION['dni'] = $comp['dniCliente'];
-                $_SESSION['total'] = 0;
+if (isset($_GET['logout'])) {
+    setcookie('nombre', '', -604800);
+    setcookie('dni', '', -604800);
+    header("Location:" . $pActual);
+} else {
+    if (isset($_POST['login'])) {
+        $url = "http://localhost/Proyecto_DAW_Tienda/php/cliente/" . $_POST['dni'];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $data = json_decode(curl_exec($ch), true);
+        // $data = curl_exec($ch);
+        // print_r($data);
+        curl_close($ch);
+        if (password_verify($_POST['contr'], $data['pwd'])) {
+            setcookie('dni', $data['dniCliente'], time() + 604800);
+            setcookie('nombre', $data['nombre'], time() + 604800);
+            if (isset($_COOKIE['carrito'])) {
+                foreach ($_COOKIE['carrito'] as $key => $value) {
+                    $valores = json_decode($value, true);
+                    $postData = array('dniCliente' => $_POST['dni'], 'idProducto' => $valores['idProducto'], 'cantidad' => $valores['cantidad'], 'precio' => $valores['precio']);
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, "http://localhost/Proyecto_DAW_Tienda/php/carritos");
+                    curl_setopt($ch, CURLOPT_HEADER, false);
+                    curl_setopt($ch, CURLOPT_POST, true);
+                    //http_build_query => Generar una cadena de consulta codificada estilo URL a partir de array  
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    $data = curl_exec($ch);
+                    // print_r($data);
+                    curl_close($ch);
+                }
+                // BORRAMOS LAS COOKIES DEL CARRITO
+                foreach ($_COOKIE['carrito'] as $key => $value) {
+                    setcookie('carrito[' . $key . ']', '', -604800);
+                }
             }
+            header("Location:" . $pActual);
         } else {
-            // TODO: revisar
-            // ? Con un include quizás?
-            require "vistas/loginmodal.html";
-            // include "vistas/modal.php";
-            include "vistas/fin.html";
-
-            // include "vistas/inicio.html";
-
-            // $dato = "El usuario o la contraseña son incorrectos<br><a href='validar.php'> Volver </a>";
-            // require "vistas/mensaje.php";
-            // include "vistas/fin.html";
+            $dato = "Contraseña o DNI incorrectos.";
+            require "vistas/mensaje.php";
         }
-        $base->link->close();
-    } else {
-        require "vistas/login.html";
-        include "vistas/fin.html";
     }
-}
-if (isset($_SESSION['nombre'])) {
-    header("Location: principal.php");
 }

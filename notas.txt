@@ -2,3 +2,6 @@ Hacer peticiones PUT DELETE
 
 https://stackoverflow.com/questions/13420952/php-curl-delete-request
 http://programandolo.blogspot.com/2013/08/ejemplo-php-de-servicio-restful-parte-2.html
+
+Api para implementar
+https://www.theaudiodb.com/api_guide.php

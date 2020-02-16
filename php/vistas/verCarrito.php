@@ -1,6 +1,6 @@
 <?php
 $precioTotal = 0;
-echo "<div class='carrito_cuerpo'><form method='POST'><input class='carrito_boton_actualizar' type='submit' name='actualizar' value='Actualizar'>";
+echo "<div class='carrito_cuerpo'><form method='POST'><input class='carrito_boton_actualizar btn btn-secondary' type='submit' name='actualizar' value='Actualizar'>";
 echo "<div class='tabla_carrito'><div class='carrito_cabecera_productos'><div>ID</div><div>Producto</div><div>Precio</div><div>Cantidad</div></div>";
 // for ($i = 0; $i < $_SESSION['total']; $i++) {
 //     if ($_SESSION['cantidad'][$i] > 0) {
@@ -45,7 +45,7 @@ if (isset($_COOKIE['nombre'])) {
     }
 }
 
-echo "<div class='carrito_precioTotal'>TOTAL $precioTotal €</div>";
+echo "<div class='carrito_precioTotal'><b>TOTAL $precioTotal €</b></div>";
 echo "</div></form></div>";
-echo "<a class='boton_carrito' href='index'> Seguir comprando </a>";
-echo "<a class='boton_carrito' href='confirmar/" . countCarrito() . "'> Realizar compra </a>";
+echo "<a class='boton_carrito float-left' href='index'> Seguir comprando </a>";
+echo "<a class='boton_carrito float-right bg-success' href='/Proyecto_DAW_Tienda/php/confirmar/" . countCarrito() . "'> Realizar compra </a>";

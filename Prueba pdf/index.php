@@ -1,6 +1,6 @@
 <?php
 
-require_once('../vendor/autoload.php');
+
 require "./plantillas/example1/example1/index.php";
 
 $css = file_get_contents('factura.css');

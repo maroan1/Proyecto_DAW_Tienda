@@ -1,7 +1,7 @@
 <?php
 include "vistas/inicio.html";
 include "vistas/saludo.php";
-$pActual = "carrito.php";
+$pActual = "/Proyecto_DAW_Tienda/php/carrito";
 require "validar.php";
 if (isset($_POST['comprar'])) {
     if (isset($_COOKIE['nombre'])) {
@@ -78,7 +78,7 @@ if (isset($_POST['comprar'])) {
 if (countCarrito() > 0) {
     require "vistas/verCarrito.php";
 } else {
-    $dato = "El carrito esta vacío.<br><a href='index'>Volver a la tienda</a>";
+    $dato = "El carrito esta vacío.<br><a href='/Proyecto_DAW_Tienda/php/index'>Volver a la tienda</a>";
     require "vistas/mensaje.php";
 }
 

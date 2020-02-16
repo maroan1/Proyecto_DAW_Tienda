@@ -32,4 +32,6 @@ RewriteRule ^lineaPedido/(.+)/(.+)/(.+)/(.+)$ lineaPedido.php?idPedido=$1&nlinea
 RewriteRule ^lineaPedido/(.+)/(.+)$ lineaPedido.php?idPedido=$1&nlinea=$2&
 RewriteRule ^lineaPedido/(.+)$ lineapedido.php?idPedido=$1
 
+RewriteRule ^imprimir$ imprimir.php
+
 

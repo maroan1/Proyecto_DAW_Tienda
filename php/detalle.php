@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "vistas/inicio.html";
-$pActual = "detalle/" . $_GET['id'];
+$pActual = "/Proyecto_DAW_Tienda/php/detalle/" . $_GET['id'];
 include "vistas/spanCarrito.php";
 require "validar.php";
 
@@ -15,7 +15,7 @@ if (isset($_GET['id'])) {
     // $data = curl_exec($ch);
     // print_r($data);
     curl_close($ch);
-    $url = "https://theaudiodb.com/api/v1/json/1/searchalbum.php?s=".urlencode($detalle['autor'])."&a=" . urlencode($detalle['nombre']) ;
+    $url = "https://theaudiodb.com/api/v1/json/1/searchalbum.php?s=" . urlencode($detalle['autor']) . "&a=" . urlencode($detalle['nombre']);
     // $url = "https://theaudiodb.com/api/v1/json/1/searchalbum.php?s=AC/DC&a=Black%20Ice&s=AC/DC&a=Black%20Ice";
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $infoApiAlbum = json_decode(curl_exec($ch), true);
     curl_close($ch);
-    $url = "https://theaudiodb.com/api/v1/json/1/search.php?s=".urlencode($detalle['autor']);
+    $url = "https://theaudiodb.com/api/v1/json/1/search.php?s=" . urlencode($detalle['autor']);
     // $url = "https://theaudiodb.com/api/v1/json/1/searchalbum.php?s=AC/DC&a=Black%20Ice&s=AC/DC&a=Black%20Ice";
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);

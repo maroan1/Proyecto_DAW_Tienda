@@ -1,6 +1,6 @@
 <?php
 
-$html = "<body>
+$html = "
 <header>
     <div id='logo'>
         <img src='img/logo.png' alt='logo de la compañia' width='120px'>
@@ -68,6 +68,4 @@ $html = "<body>
 </main>
 <footer>
     Factura creada por ordenador, valida sin firma ni sello.
-</footer>
-</body>"
-;
+</footer>";

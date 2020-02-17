@@ -118,7 +118,7 @@ if (isset($_COOKIE['nombre'])) {
 </footer>";
         $html = $dato;
         setcookie('html', $html, time() + 60000, "/Proyecto_DAW_Tienda/php");
-        $dato .= "<a class='btn-imprimir' href='/Proyecto_DAW_Tienda/php/imprimir'>Imprimir</a>";
+        $dato .= "<a class='btn-imprimir' href='/Proyecto_DAW_Tienda/php/imprimir' target='_blank'>Imprimir</a>";
         // $dato .= "<div class='row m-0'>
         //     <form action='\Proyecto_DAW_Tienda\php\imprimir' method='post'>
         //     <input type='text' name='html' value='$html' hidden>

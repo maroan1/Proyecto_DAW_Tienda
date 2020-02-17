@@ -1,7 +1,7 @@
 <?php
 if (isset($_GET['logout'])) {
-    setcookie('nombre', '', -604800);
-    setcookie('dni', '', -604800);
+    setcookie('nombre', '', -604800, "/Proyecto_DAW_Tienda/php");
+    setcookie('dni', '', -604800, "/Proyecto_DAW_Tienda/php");
     header("Location:" . $pActual);
 } else {
     if (isset($_POST['login'])) {
@@ -15,8 +15,8 @@ if (isset($_GET['logout'])) {
         // print_r($data);
         curl_close($ch);
         if (password_verify($_POST['contr'], $data['pwd'])) {
-            setcookie('dni', $data['dniCliente'], time() + 604800);
-            setcookie('nombre', $data['nombre'], time() + 604800);
+            setcookie('dni', $data['dniCliente'], time() + 604800, "/Proyecto_DAW_Tienda/php");
+            setcookie('nombre', $data['nombre'], time() + 604800, "/Proyecto_DAW_Tienda/php");
             if (isset($_COOKIE['carrito'])) {
                 foreach ($_COOKIE['carrito'] as $key => $value) {
                     $valores = json_decode($value, true);
@@ -34,7 +34,7 @@ if (isset($_GET['logout'])) {
                 }
                 // BORRAMOS LAS COOKIES DEL CARRITO
                 foreach ($_COOKIE['carrito'] as $key => $value) {
-                    setcookie('carrito[' . $key . ']', '', -604800);
+                    setcookie('carrito[' . $key . ']', '', -604800, "/Proyecto_DAW_Tienda/php");
                 }
             }
             header("Location:" . $pActual);

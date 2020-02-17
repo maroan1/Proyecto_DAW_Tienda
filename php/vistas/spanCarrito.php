@@ -1,8 +1,8 @@
 <?php
 if (isset($_COOKIE['nombre'])) {
-    echo "<div class='tienda_menu'>Bienvenid@ " . $_COOKIE['nombre'] . "<a href='" . $pActual . "?logout=1'>Desconectar</a>" . "<a href='/Proyecto_DAW_Tienda/php/carrito'><span class='carrito_icono'><img src='/Proyecto_DAW_Tienda/img/cart.png'><span class='carrito_total'>" . countCarrito() . "</span></span></a></div>";
+    echo "<div class='tienda_menu text-center'><a href='/Proyecto_DAW_Tienda/php/index' class='btn btn-outline-light float-left'> INICIO </a> Bienvenid@ " . $_COOKIE['nombre'] . " <a class='btn btn-outline-danger' href='" . $pActual . "?logout=1'> Desconectar </a>" . "<a href='/Proyecto_DAW_Tienda/php/carrito'><span class='carrito_icono'><img src='/Proyecto_DAW_Tienda/img/cart.png'><span class='carrito_total'>" . countCarrito() . "</span></span></a></div>";
 } else {
-    echo "<div class='tienda_menu'>Bienvenid@ Invitad@" . " " . "<form action='' method='post'>Dni: <input name='dni' type='text'> Contraseña: <input type='password' name='contr'> <input type='submit' name='login'></form>" . "<a href='/Proyecto_DAW_Tienda/php/carrito'><span class='carrito_icono'><img src='/Proyecto_DAW_Tienda/img/cart.png'><span class='carrito_total'>" . countCarrito() . "</span></span></a></div>";
+    echo "<div class='tienda_menu text-center'><a href='/Proyecto_DAW_Tienda/php/index' class='btn btn-outline-light float-left'> INICIO </a> Bienvenid@ Invitad@" . " " . " <form class='form-inline' action='' method='post'>Dni:<input class='input_login' name='dni' type='text'> Contraseña:<input class='input_login' type='password' name='contr'> <input class='btn btn-outline-success' type='submit' name='login'></form>" . "<a href='/Proyecto_DAW_Tienda/php/carrito'><span class='carrito_icono'><img src='/Proyecto_DAW_Tienda/img/cart.png'><span class='carrito_total'>" . countCarrito() . "</span></span></a></div>";
 }
 
 function countCarrito()

@@ -1,7 +1,7 @@
 <?php
 include "vistas/inicio.html";
-include "vistas/saludo.php";
 $pActual = "/Proyecto_DAW_Tienda/php/carrito";
+include "vistas/saludo.php";
 require "validar.php";
 if (isset($_POST['comprar'])) {
     if (isset($_COOKIE['nombre'])) {
@@ -30,11 +30,11 @@ if (isset($_POST['comprar'])) {
         if ($existe) {
             echo "existe";
             $arryCarrito = array('idProducto' => $_POST['id'], 'cantidad' => $cantidad, 'precio' => $_POST['precio']);
-            setcookie("carrito[" . $_POST['id'] . "]", json_encode($arryCarrito), time() + 604800);
+            setcookie("carrito[" . $_POST['id'] . "]", json_encode($arryCarrito), time() + 604800, "/Proyecto_DAW_Tienda/php");
         } else {
             echo "no existe";
             $arryCarrito = array('idProducto' => $_POST['id'], 'cantidad' => $_POST['cantidad'], 'precio' => $_POST['precio']);
-            setcookie("carrito[" . $_POST['id'] . "]", json_encode($arryCarrito), time() + 604800);
+            setcookie("carrito[" . $_POST['id'] . "]", json_encode($arryCarrito), time() + 604800, "/Proyecto_DAW_Tienda/php");
         }
     }
     header("Location:carrito");
@@ -64,10 +64,10 @@ if (isset($_POST['comprar'])) {
             $valores = json_decode($value, true);
             if ($_POST[$valores['idProducto']] > 0) {
                 $valores['cantidad'] = $_POST[$valores['idProducto']];
-                setcookie("carrito[" . $valores['idProducto'] . "]", json_encode($valores), time() + 604800);
+                setcookie("carrito[" . $valores['idProducto'] . "]", json_encode($valores), time() + 604800, "/Proyecto_DAW_Tienda/php");
                 echo "modificado";
             } else {
-                setcookie("carrito[" . $valores['idProducto'] . "]", '', -604800);
+                setcookie("carrito[" . $valores['idProducto'] . "]", '', -604800, "/Proyecto_DAW_Tienda/php");
                 echo "borrado";
             }
             header("Location:carrito");

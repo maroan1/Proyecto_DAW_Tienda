@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "vistas/inicio.html";
-$pActual = "/Proyecto_DAW_Tienda/php/detalle/" . $_GET['id'];
+$pActual = "/Proyecto_DAW_Tienda/php/index";
 include "vistas/spanCarrito.php";
 require "validar.php";
 
